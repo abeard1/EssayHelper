@@ -9,7 +9,7 @@ include "top.php";
 //for security
 $thisURL = $domain . $phpSelf;
 
-
+//TEST
 
 // When form is submitted:
 if (isset($_POST["btnSubmit"])) {
