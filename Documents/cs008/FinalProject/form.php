@@ -67,7 +67,7 @@ if (isset($_POST["btnSubmit"])) {
             print_r($essayWords);
             print "</pre>";
             
-            
+            //test commit
   
             
             //parsed to array of sentences (don't need to keep delimiters - always .)
