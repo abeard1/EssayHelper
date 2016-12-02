@@ -1,4 +1,22 @@
 <?php
+                function highlightkeyword($str, $search, $class) {
+                    //$highlightcolor = "#daa732";                        
+                        //print $str;
+                        $occurrences = substr_count(strtolower($str), strtolower($search));
+                        $newstring = $str;
+                        $match = array();
+
+                        for ($i=0;$i<$occurrences;$i++) {
+                            $match[$i] = stripos($str, $search, $i);
+                            $match[$i] = substr($str, $match[$i], strlen($search));
+                            $newstring = str_replace($match[$i], '[#]'.$match[$i].'[@]', $newstring);
+                        }
+
+                        $newstring = str_replace('[#]', '<span class="'.$class.'">', $newstring);
+                        $newstring = str_replace('[@]', '</span>', $newstring);
+                        return $newstring;
+                    
+}
 include "top.php";
 
     //Initialize array
@@ -69,7 +87,6 @@ if (isset($_POST["btnSubmit"])) {
             
             //test commit
   
-            
             //parsed to array of sentences (don't need to keep delimiters - always .)
             //$essaySentences = preg_split('/\.[^\d]/', $_POST[txtEssay]);
             $essaySentences = explode(".", $_POST[txtEssay]);
@@ -87,6 +104,7 @@ if (isset($_POST["btnSubmit"])) {
             print_r($essaySentences);
             print "</pre>";
         
+            print "<h3>Sentences reprint - run-on and fragment highlighted:</h3>";
             //reprint sentences (highlighting run on sentences)
             foreach($essaySentences as $sentence ) {
                 
@@ -97,11 +115,11 @@ if (isset($_POST["btnSubmit"])) {
                 $min_spaces = 3;
                 $max_spaces =7; 
                 
-                print '<span ';
+                print '<span';
                 if($spaces_count <= $min_spaces) 
-                    print 'class="fragment"';
+                    print ' class="fragment"';
                 if($spaces_count >= $max_spaces) 
-                    print 'class="runon"';
+                    print ' class="runon"';
                 print '>';
                 
                 
@@ -112,6 +130,46 @@ if (isset($_POST["btnSubmit"])) {
                 
 
 		}
+                
+            print "<h3>Words reprint - test and flag highlighted:</h3>";
+            //reprint words - highlighting words in $informalWords
+            $informalWords = array("test", "flag");
+            
+            //keep calling highlightkeyword until all informal words have been flagged with correct tag
+            $highlightedWords = $_POST[txtEssay];
+            
+            foreach($informalWords as $informalWord) {
+            $highlightedWords = highlightkeyword($highlightedWords, $informalWord, "informal");
+            
+            //print $highlightedWords;
+            }
+            
+            print $highlightedWords;
+                    
+            
+            
+//            for($i = 0; $i < count($essayWords); $i++) {
+//                $flagged = false;
+//                
+//                foreach($informalWords as $word) {
+//                    if($word === $essayWords[i])
+//                        $flagged = true;
+//                        //break;
+//                }
+//                
+//                print '<span';
+//                if($flagged = true) 
+//                    print ' class="informal"';
+//                print '>';
+//                
+//                print $essayWordsRePrint[$i];
+//                
+//                print '</span>';
+//                
+//
+//		}
+                
+
             
             
             //$essayChars = str_split($_POST[txtEssay]);
