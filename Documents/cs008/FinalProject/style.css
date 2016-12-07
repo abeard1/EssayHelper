@@ -121,27 +121,87 @@ aside {
 
 .fragment {
     color: #800;
-
+    position: relative;
 }
-.fragment:hover {
+
+/*.fragment:hover {
     color: #fff;
     background-color: #800;
     border: thin solid #000;
 }
+*/
 
 .runon {
     color: #0000A0;
+    position: relative;
 
 }
+
+/*
 .runon:hover {
     color: #fff;
     background-color: #0000A0;
     border: thin solid #000;
+    
+}
+*/
+
+.informal {
+    color: #8B4513;
+    position: relative;
 }
 
+/*.informal:hover {
+    color: #fff;
+    background-color: #8B4513;
+    border: thin solid #000;
+}*/
 
 
 
+.tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 1s;
+}
 
+.tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+.runon:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.fragment:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+    
+}
+
+.informal:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+    
+}
 
 
