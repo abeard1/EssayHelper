@@ -1,5 +1,5 @@
 <?php
-                function highlightkeyword($str, $search, $class) {
+                function highlightkeyword($str, $search, $class, $hoverText) {
                     //$highlightcolor = "#daa732";                        
                         //print $str;
                         $occurrences = substr_count(strtolower($str), strtolower($search));
@@ -13,10 +13,25 @@
                         }
 
                         $newstring = str_replace('[#]', '<span class="'.$class.'">', $newstring);
-                        $newstring = str_replace('[@]', '</span>', $newstring);
+                        $newstring = str_replace('[@]', '<span class="tooltiptext">'.$hoverText.'</span></span>', $newstring);
                         return $newstring;
                     
 }
+
+//open file
+$informalWordsFileName = "informalWords.csv";
+
+$informalWordsFile = fopen($informalWordsFileName, "r");
+
+//no headers
+while(!feof($informalWordsFile)){
+        $informalWords[]=fgetcsv($informalWordsFile);
+    }
+//$informalWords[0] = array("test", "flag");
+    
+//closes the file
+fclose($informalWordsFile);
+
 include "top.php";
 
     //Initialize array
@@ -126,20 +141,30 @@ if (isset($_POST["btnSubmit"])) {
                 print $sentence;
                 print". ";
                 
+                //print '<span class="tooltiptext">This might be a run-on sentence</span></span>';
+                if($spaces_count <= $min_spaces) 
+                    print '<span class="tooltiptext">Possible fragment sentence</span>';
+                if($spaces_count >= $max_spaces) 
+                    print '<span class="tooltiptext">Possible run-on sentence</span>';
+
                 print '</span>';
                 
-
 		}
                 
             print "<h3>Words reprint - test and flag highlighted:</h3>";
             //reprint words - highlighting words in $informalWords
-            $informalWords = array("test", "flag");
+            //$informalWords = array("test", "flag");
+            
             
             //keep calling highlightkeyword until all informal words have been flagged with correct tag
             $highlightedWords = $_POST[txtEssay];
             
+            print "<p>Flag Array:</p><pre>";
+            print_r($informalWords);
+            print "</pre>";
+            
             foreach($informalWords as $informalWord) {
-            $highlightedWords = highlightkeyword($highlightedWords, $informalWord, "informal");
+                $highlightedWords = highlightkeyword($highlightedWords, $informalWord[0], "informal", $informalWord[1]);
             
             //print $highlightedWords;
             }
