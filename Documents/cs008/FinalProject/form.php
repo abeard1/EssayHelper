@@ -13,12 +13,13 @@
                         }
 
                         $newstring = str_replace('[#]', '<span class="'.$class.'">', $newstring);
-                        $newstring = str_replace('[@]', '<span class="tooltiptext">'.$hoverText.'</span></span>', $newstring);
+                        $newstring = str_replace('[@]', '<span class="tooltiptext">Informal word/phrase. Suggested replacement:<br><strong> '.$hoverText.'</strong></span></span>', $newstring);
                         return $newstring;
                     
 }
 
 //open file
+//source: http://www.engvid.com/english-resource/formal-informal-english/
 $informalWordsFileName = "informalWords.csv";
 
 $informalWordsFile = fopen($informalWordsFileName, "r");
@@ -34,10 +35,6 @@ fclose($informalWordsFile);
 
 include "top.php";
 
-    //Initialize array
-    print "<p>Post Array:</p><pre>";
-    print_r($_POST);
-    print "</pre>";
 
 //for security
 $thisURL = $domain . $phpSelf;
@@ -81,12 +78,7 @@ if (isset($_POST["btnSubmit"])) {
             
             //Split into words (keep delimiters - for reprinting at end)
             $essayWordsRePrint = preg_split('/\s+|\b(?=[!\?\.])(?!\.\s+)/', $_POST[txtEssay]);
-            
-            //print array of words with delimiters
-            print "<p>Words Array (with delimiters):</p><pre>";
-            print_r($essayWordsRePrint);
-            print "</pre>";
-            
+                        
             //Split into JUST words and apostrophes - for lookup of words
             $essayWords = array();
             $essayWords = $essayWordsRePrint;
@@ -94,13 +86,8 @@ if (isset($_POST["btnSubmit"])) {
             foreach ($essayWords as &$element) {
                 $element = preg_replace("/[^'\w]/", "", $element);
             }
-            
-            //print array of just words
-            print "<p>Words Array:</p><pre>";
-            print_r($essayWords);
-            print "</pre>";
-            
-            //test commit
+
+                  //test commit
   
             //parsed to array of sentences (don't need to keep delimiters - always .)
             //$essaySentences = preg_split('/\.[^\d]/', $_POST[txtEssay]);
@@ -111,13 +98,7 @@ if (isset($_POST["btnSubmit"])) {
             
             //delete period from last sentence:
             //$essaySentences[count($essaySentences) - 1] = preg_replace('/[.,]/', '', $essaySentences[count($essaySentences) - 1]);
- 
 
-
-            //print array of sentences
-            print "<p>Sentences Array:</p><pre>";
-            print_r($essaySentences);
-            print "</pre>";
         
             print "<h3>Sentences reprint - run-on and fragment highlighted:</h3>";
             //reprint sentences (highlighting run on sentences)
@@ -159,9 +140,6 @@ if (isset($_POST["btnSubmit"])) {
             //keep calling highlightkeyword until all informal words have been flagged with correct tag
             $highlightedWords = $_POST[txtEssay];
             
-            print "<p>Flag Array:</p><pre>";
-            print_r($informalWords);
-            print "</pre>";
             
             foreach($informalWords as $informalWord) {
                 $highlightedWords = highlightkeyword($highlightedWords, $informalWord[0], "informal", $informalWord[1]);
