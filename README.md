@@ -7,16 +7,16 @@ When you submit your essay, EssayHelper splits it into two arrays: one split int
 
 Example: If you submitted "Hello. This is a test essay.", EssayHelper would split this into:
 
-Sentences Array:
-0 -> hello
-1 -> this is a test essay
-Words Array:
-0 -> hello
-1 -> this
-2 -> is
-3 -> a
-4 -> test
-5 -> essay
+<strong>Sentences Array: </strong><br>
+0 -> hello <br>
+1 -> this is a test essay <br><br>
+<strong>Words Array: </strong> <br>
+0 -> hello <br>
+1 -> this <br>
+2 -> is <br>
+3 -> a <br>
+4 -> test <br>
+5 -> essay <br><br>
 EssayHelper than iterates through the sentences array, counting the number of words in each one, and flagging possible run-on or fragment sentences.
 
 It then iterates through the words array, flagging words from the informalWords csv files.
