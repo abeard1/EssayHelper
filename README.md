@@ -1,4 +1,4 @@
-# <a href="https://abeard1.w3.uvm.edu/cs008/FinalProject/form.php">Essay Helper - Web Design Final Project</a>
+# <a href="https://abeard1.w3.uvm.edu/cs008/FinalProject/form.php">Essay Helper - Intro to Web Design Final Project</a>
 # 
 
 EssayHelper is a tool to help fine-tune your essays. A little background on how it works:
